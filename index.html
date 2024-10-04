@@ -158,7 +158,8 @@
     <!-- Integrate Chatbot -->
     <!-- <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
     <script> KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = '6efc8908d09249caaf58373347d3ccb9fefefec3a2db450a89a6d9e78d1243ccstdc'; new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig); </script> -->
-    <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
+    <!-- <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script> -->
+    <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
     <script>
         // Custom context data, for example, userEmail stored in localStorage
         var userEmail = 'devil@hell.com';
@@ -177,9 +178,19 @@
         console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
 
         // API Key configuration and showing the chatbot
-        KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = '6efc8908d09249caaf58373347d3ccb9fefefec3a2db450a89a6d9e78d1243ccstdc';
+        // KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = '6efc8908d09249caaf58373347d3ccb9fefefec3a2db450a89a6d9e78d1243ccstdc';
+        // new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
+
+        KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = '41e2cc1f525c41a3a1293d0c5c61e85989c50d4af61d411bb584b1686238855cstb3';
         new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
+
+
     </script>
+
+    <!-- <script> 
+         KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = '41e2cc1f525c41a3a1293d0c5c61e85989c50d4af61d411bb584b1686238855cstb3'; 
+         new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig); 
+         </script> -->
 </body>
 
 </html>
