@@ -7,18 +7,6 @@
     <title>Orbital Airlines - Explore the World with Comfort</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .login-logout-icon {
-            width: 25px;
-            height: 25px;
-            color: #fff !important;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-        }
-    </style>
 </head>
 
 <body>
@@ -97,8 +85,34 @@
         </div>
     </div>
 
-    <!-- Script -->
+    <!-- Integrate Chatbot -->
+    <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
     <script>
+        // Function to initialize the chat window
+        function initializeChat() {
+            // Get the user's email from localStorage
+            const userEmail = localStorage.getItem('userEmail') || 'default-email@example.com';
+            console.log("UserEmail: ", userEmail);
+
+            // Update the chat configuration to pass the user's email as custom context data
+            KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = 'db9af42e6edc4367bc449d115079c5fed68e6e1f5a9d434190bf1a61c5ca6f9ast14';
+
+            // Pass user's email as customData to be accessible in the bot's context
+            KoreChatSDK.chatConfig.botOptions.botInfo.customData = {
+                webContext: {
+                    email: userEmail
+                }
+            };
+
+            // Optional: Set userIdentity to make sure the bot uniquely identifies the user
+            KoreChatSDK.chatConfig.botOptions.botInfo.userIdentity = userEmail;
+
+            // Initialize or show the chat window with the updated configuration
+            new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
+
+            console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
+        }
+
         // Open Modal
         function openModal() {
             document.getElementById('loginModal').style.display = 'flex';
@@ -119,6 +133,10 @@
                 localStorage.setItem('userEmail', email);
                 closeModal();
                 updateLoginLogout(); // Update the login/logout icon right after login
+
+                // Reinitialize the chat with the new user email
+                initializeChat(); // Update chat configuration after login
+
                 window.location.href = '#home';
             } else {
                 alert('Please enter both email and password.');
@@ -131,6 +149,8 @@
             localStorage.removeItem('userEmail');
             alert('You have successfully logged out.');
             updateLoginLogout(); // Update the login/logout icon right after logout
+
+            // Do not reinitialize chat on logout
             window.location.href = '#home';
         }
 
@@ -152,35 +172,14 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', updateLoginLogout);
-    </script>
-
-    <!-- Integrate Chatbot -->
-    <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
-    <script>
-        // Assuming the user email is stored in the browser's localStorage
-        const userEmail = localStorage.getItem('userEmail') || 'default-email@example.com';
-        console.log("UserEmail: ", userEmail)
-
-        // Update the chat configuration to pass the user's email as custom context data
-        KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = 'db9af42e6edc4367bc449d115079c5fed68e6e1f5a9d434190bf1a61c5ca6f9ast14';
-
-        // Pass user's email as customData to be accessible in the bot's context
-        KoreChatSDK.chatConfig.botOptions.botInfo.customData = {
-            webContext: {
-                email: userEmail
+        // Initialize chat and update login/logout UI on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            updateLoginLogout(); // Update login/logout UI
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                initializeChat(); // Initialize chat only if logged in
             }
-        };
-
-        // Optional: Set userIdentity to make sure the bot uniquely identifies the user
-        KoreChatSDK.chatConfig.botOptions.botInfo.userIdentity = userEmail;
-
-        // Initialize the chat window with the updated configuration
-        new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
-
-        console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
+        });
     </script>
-
 
 </body>
 

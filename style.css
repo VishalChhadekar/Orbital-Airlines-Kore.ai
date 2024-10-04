@@ -306,3 +306,13 @@ footer a:hover {
 .kore-chat-window-main-section {
     z-index: 10 !important;
 }
+.login-logout-icon {
+    width: 25px;
+    height: 25px;
+    color: #fff !important;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
