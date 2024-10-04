@@ -97,34 +97,8 @@
         </div>
     </div>
 
-    <!-- Integrate Chatbot -->
-    <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
+    <!-- Script -->
     <script>
-        // Function to initialize the chat window
-        function initializeChat() {
-            // Get the user's email from localStorage
-            const userEmail = localStorage.getItem('userEmail') || 'default-email@example.com';
-            console.log("UserEmail: ", userEmail);
-
-            // Update the chat configuration to pass the user's email as custom context data
-            KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = 'db9af42e6edc4367bc449d115079c5fed68e6e1f5a9d434190bf1a61c5ca6f9ast14';
-
-            // Pass user's email as customData to be accessible in the bot's context
-            KoreChatSDK.chatConfig.botOptions.botInfo.customData = {
-                webContext: {
-                    email: userEmail
-                }
-            };
-
-            // Optional: Set userIdentity to make sure the bot uniquely identifies the user
-            KoreChatSDK.chatConfig.botOptions.botInfo.userIdentity = userEmail;
-
-            // Initialize or show the chat window with the updated configuration
-            new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
-
-            console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
-        }
-
         // Open Modal
         function openModal() {
             document.getElementById('loginModal').style.display = 'flex';
@@ -145,10 +119,6 @@
                 localStorage.setItem('userEmail', email);
                 closeModal();
                 updateLoginLogout(); // Update the login/logout icon right after login
-
-                // Reinitialize the chat with the new user email
-                initializeChat(); // Update chat configuration after login
-
                 window.location.href = '#home';
             } else {
                 alert('Please enter both email and password.');
@@ -161,10 +131,6 @@
             localStorage.removeItem('userEmail');
             alert('You have successfully logged out.');
             updateLoginLogout(); // Update the login/logout icon right after logout
-
-            // Reinitialize the chat to update email context
-            initializeChat(); // Update chat configuration after logout
-
             window.location.href = '#home';
         }
 
@@ -186,12 +152,35 @@
             }
         }
 
-        // Initialize chat and update login/logout UI on page load
-        document.addEventListener('DOMContentLoaded', function () {
-            updateLoginLogout(); // Update login/logout UI
-            initializeChat(); // Initialize chat
-        });
+        document.addEventListener('DOMContentLoaded', updateLoginLogout);
     </script>
+
+    <!-- Integrate Chatbot -->
+    <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
+    <script>
+        // Assuming the user email is stored in the browser's localStorage
+        const userEmail = localStorage.getItem('userEmail') || 'default-email@example.com';
+        console.log("UserEmail: ", userEmail)
+
+        // Update the chat configuration to pass the user's email as custom context data
+        KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = 'db9af42e6edc4367bc449d115079c5fed68e6e1f5a9d434190bf1a61c5ca6f9ast14';
+
+        // Pass user's email as customData to be accessible in the bot's context
+        KoreChatSDK.chatConfig.botOptions.botInfo.customData = {
+            webContext: {
+                email: userEmail
+            }
+        };
+
+        // Optional: Set userIdentity to make sure the bot uniquely identifies the user
+        KoreChatSDK.chatConfig.botOptions.botInfo.userIdentity = userEmail;
+
+        // Initialize the chat window with the updated configuration
+        new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
+
+        console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
+    </script>
+
 
 </body>
 

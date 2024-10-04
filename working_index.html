@@ -97,92 +97,8 @@
         </div>
     </div>
 
-    <!-- Script -->
-    <script>
-        // Open Modal
-        function openModal() {
-            document.getElementById('loginModal').style.display = 'flex';
-        }
-
-        // Close Modal
-        function closeModal() {
-            document.getElementById('loginModal').style.display = 'none';
-        }
-
-        // Login User
-        function loginUser() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if (email && password) {
-                localStorage.setItem('isLoggedIn', true);
-                localStorage.setItem('userEmail', email);
-                closeModal();
-                updateLoginLogout(); // Update the login/logout icon right after login
-                window.location.href = '#home';
-            } else {
-                alert('Please enter both email and password.');
-            }
-        }
-
-        // Logout User
-        function logoutUser() {
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('userEmail');
-            alert('You have successfully logged out.');
-            updateLoginLogout(); // Update the login/logout icon right after logout
-            window.location.href = '#home';
-        }
-
-        // Update Navbar to Show Login or Logout
-        function updateLoginLogout() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            const loginLogoutItem = document.getElementById('login-logout-item');
-
-            if (isLoggedIn === 'true') {
-                loginLogoutItem.innerHTML = `
-                    <a href="#" onclick="logoutUser()">
-                        <img src="img/logout.png" class="login-logout-icon" alt="Logout">
-                    </a>`;
-            } else {
-                loginLogoutItem.innerHTML = `
-                    <a href="#" onclick="openModal()">
-                        <img src="img/user.png" class="login-logout-icon" alt="Login">
-                    </a>`;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', updateLoginLogout);
-    </script>
-
     <!-- Integrate Chatbot -->
     <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
-    <!-- <script>
-        // Assuming the user email is stored in the browser's localStorage
-        const userEmail = localStorage.getItem('userEmail') || 'default-email@example.com';
-        console.log("UserEmail: ", userEmail)
-
-        // Update the chat configuration to pass the user's email as custom context data
-        KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = 'db9af42e6edc4367bc449d115079c5fed68e6e1f5a9d434190bf1a61c5ca6f9ast14';
-
-        // Pass user's email as customData to be accessible in the bot's context
-        KoreChatSDK.chatConfig.botOptions.botInfo.customData = {
-            webContext: {
-                email: userEmail
-            }
-        };
-
-        // Optional: Set userIdentity to make sure the bot uniquely identifies the user
-        KoreChatSDK.chatConfig.botOptions.botInfo.userIdentity = userEmail;
-
-        // Initialize the chat window with the updated configuration
-        new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
-
-        console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
-    </script> -->
-
-    <!-- Integrate Chatbot -->
-
     <script>
         // Function to initialize the chat window
         function initializeChat() {
@@ -209,10 +125,17 @@
             console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
         }
 
-        // Call the function on page load to initialize the chat
-        document.addEventListener('DOMContentLoaded', initializeChat);
+        // Open Modal
+        function openModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
 
-        // Login User function modified to call initializeChat after login
+        // Close Modal
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        // Login User
         function loginUser() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -231,9 +154,44 @@
                 alert('Please enter both email and password.');
             }
         }
+
+        // Logout User
+        function logoutUser() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            alert('You have successfully logged out.');
+            updateLoginLogout(); // Update the login/logout icon right after logout
+
+            // Do not reinitialize chat on logout
+            window.location.href = '#home';
+        }
+
+        // Update Navbar to Show Login or Logout
+        function updateLoginLogout() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const loginLogoutItem = document.getElementById('login-logout-item');
+
+            if (isLoggedIn === 'true') {
+                loginLogoutItem.innerHTML = `
+                    <a href="#" onclick="logoutUser()">
+                        <img src="img/logout.png" class="login-logout-icon" alt="Logout">
+                    </a>`;
+            } else {
+                loginLogoutItem.innerHTML = `
+                    <a href="#" onclick="openModal()">
+                        <img src="img/user.png" class="login-logout-icon" alt="Login">
+                    </a>`;
+            }
+        }
+
+        // Initialize chat and update login/logout UI on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            updateLoginLogout(); // Update login/logout UI
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                initializeChat(); // Initialize chat only if logged in
+            }
+        });
     </script>
-
-
 
 </body>
 
