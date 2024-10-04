@@ -162,18 +162,25 @@
         const userEmail = 'vishal@gmail.com';
         // const userEmail = localStorage.getItem('userEmail');
 
-        // Update the chat configuration to pass the user's email as custom context
+        // Update the chat configuration to pass the user's email as custom context data
         KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = '41e2cc1f525c41a3a1293d0c5c61e85989c50d4af61d411bb584b1686238855cstb3';
+
+        // Pass user's email as customData to be accessible in the bot's context
         KoreChatSDK.chatConfig.botOptions.customData = {
             webContext: {
                 email: userEmail
             }
         };
-        console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
+
+        // Optional: Set userIdentity to make sure the bot uniquely identifies the user
+        KoreChatSDK.chatConfig.botOptions.userIdentity = userEmail;
 
         // Initialize the chat window with the updated configuration
         new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
+
+        console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
     </script>
+
 
 </body>
 
