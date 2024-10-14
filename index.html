@@ -185,7 +185,8 @@
     <script>
         // Chatbot initialization function
         function runChatBotInitialization() {
-            const userEmail = localStorage.getItem('userEmail') || null;
+            const userEmail = localStorage.getItem('userEmail') || 'default@example.com';
+            // const userEmail = localStorage.getItem('userEmail') || null;
             console.log("UserEmail: ", userEmail);
 
             if (userEmail) {
