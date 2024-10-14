@@ -228,7 +228,7 @@
                 localStorage.setItem('isLoggedIn', true);
                 localStorage.setItem('userEmail', email);
                 closeModal();
-                updateLoginLogout(); // Update the login/logout icon right after login
+                // updateLoginLogout(); // Update the login/logout icon right after login
                 window.location.href = '#home';
 
                 // Initialize chatbot after successful login
@@ -265,13 +265,13 @@
         function logoutUser() {
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('userEmail');
-            updateLoginLogout();
+            // updateLoginLogout();
             alert('Logged out successfully!');
         }
 
         // Initialize the chatbot when the page loads
         window.onload = function () {
-            updateLoginLogout();
+            // updateLoginLogout();
             runChatBotInitialization();
         };
     </script>
