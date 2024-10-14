@@ -98,7 +98,7 @@
     </div>
 
     <!-- Script -->
-    <script>
+    <!-- <script>
         // Open Modal
         function openModal() {
             document.getElementById('loginModal').style.display = 'flex';
@@ -153,12 +153,12 @@
         }
 
         document.addEventListener('DOMContentLoaded', updateLoginLogout);
-    </script>
+    </script> -->
 
     <!-- Integrate Chatbot -->
 
     <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.0/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
-    <script>
+    <!-- <script>
         // Assuming the user email is stored in the browser's localStorage
         const userEmail = localStorage.getItem('userEmail') || null;
         console.log("UserEmail: ", userEmail)
@@ -180,8 +180,101 @@
         new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
 
         console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
-    </script>
+    </script> -->
 
+    <script>
+        // Chatbot initialization function
+        function runChatBotInitialization() {
+            const userEmail = localStorage.getItem('userEmail') || null;
+            console.log("UserEmail: ", userEmail);
+
+            if (userEmail) {
+                // Update the chat configuration to pass the user's email as custom context data
+                KoreChatSDK.chatConfig.botOptions.API_KEY_CONFIG.KEY = 'db9af42e6edc4367bc449d115079c5fed68e6e1f5a9d434190bf1a61c5ca6f9ast14';
+
+                // Pass user's email as customData to be accessible in the bot's context
+                KoreChatSDK.chatConfig.botOptions.botInfo.customData = {
+                    webContext: {
+                        email: userEmail
+                    }
+                };
+
+                //File uploder plugin
+                KoreChatSDK.chatConfig.botOptions.plugin = {
+                    FileUploader: {
+                        enable: true
+                    }
+                };
+                //
+
+                // Optional: Set userIdentity to make sure the bot uniquely identifies the user
+                KoreChatSDK.chatConfig.botOptions.botInfo.userIdentity = userEmail;
+
+                // Initialize the chat window with the updated configuration
+                new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
+
+                console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
+            } else {
+                console.log("No user email found, chatbot not initialized.");
+            }
+        }
+
+        // Login User
+        function loginUser() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email && password) {
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('userEmail', email);
+                closeModal();
+                updateLoginLogout(); // Update the login/logout icon right after login
+                window.location.href = '#home';
+
+                // Initialize chatbot after successful login
+                runChatBotInitialization();
+            } else {
+                alert('Please enter both email and password.');
+            }
+        }
+
+        // Show or hide login modal
+        function openModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        // Update Login/Logout button based on login status
+        function updateLoginLogout() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const loginLogoutBtn = document.getElementById('loginLogoutBtn');
+
+            if (isLoggedIn) {
+                loginLogoutBtn.innerText = 'Logout';
+                loginLogoutBtn.onclick = logoutUser;
+            } else {
+                loginLogoutBtn.innerText = 'Login';
+                loginLogoutBtn.onclick = openModal;
+            }
+        }
+
+        // Logout User
+        function logoutUser() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            updateLoginLogout();
+            alert('Logged out successfully!');
+        }
+
+        // Initialize the chatbot when the page loads
+        window.onload = function () {
+            updateLoginLogout();
+            runChatBotInitialization();
+        };
+    </script>
 
 </body>
 
