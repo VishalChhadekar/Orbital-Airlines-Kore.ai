@@ -318,5 +318,19 @@ footer a:hover {
 }
 
 .kore-chat-window-main-section * {
-    font-family: cursive !important;
+    font-family: sans-serif !important;
+}
+
+
+/* //UI changes */
+.agent-bubble-comp .agent-bubble-content .bubble-msg-with-img .bubble-msg {
+    background: #56b0c0 !important;
+    /* Text color: white */
+}
+
+.chat-widget-composebar .compose-bar-wrapper .send-btn {
+    background: #56b0c0 !important;
+}
+.chat-widget-header .info-content-data .content-text h1 h2 {
+    color: #ffffff !important;
 }
