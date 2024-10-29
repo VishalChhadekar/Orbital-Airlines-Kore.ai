@@ -1,5 +1,6 @@
 body {
-    font-family: 'Nunito', sans-serif;
+    /* font-family: 'Nunito', sans-serif !important; */
+    font-family: sans-serif !important;
     margin: 0;
     padding: 0;
     color: #333;
