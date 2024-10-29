@@ -325,12 +325,20 @@ footer a:hover {
 /* //UI changes */
 .agent-bubble-comp .agent-bubble-content .bubble-msg-with-img .bubble-msg {
     background: #56b0c0 !important;
-    /* Text color: white */
 }
 
 .chat-widget-composebar .compose-bar-wrapper .send-btn {
     background: #56b0c0 !important;
 }
-.chat-widget-header .info-content-data .content-text h1 h2 {
+
+.chat-widget-header {
+    background: #56b0c0 !important;
+}
+
+.chat-widget-header .info-content-data .content-text h1 {
+    color: #ffffff !important;
+}
+
+.chat-widget-header .info-content-data .content-text h2 {
     color: #ffffff !important;
 }
