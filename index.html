@@ -98,7 +98,8 @@
     </div>
 
     <!-- Include Kore.ai Web SDK -->
-    <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.1/dist/umd/kore-web-sdk-umd-chat.min.js'></script>
+<!--     <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.1/dist/umd/kore-web-sdk-umd-chat.min.js'></script> -->
+    <script src='https://cdn.jsdelivr.net/npm/kore-web-sdk@11.6.1/dist/umd//multi-file-upload.js'></script>
     <script>
         // Function to initialize chatbot with File Upload Plugin enabled
         function runChatBotInitialization() {
@@ -121,7 +122,11 @@
                 KoreChatSDK.chatConfig.botOptions.botInfo.userIdentity = userEmail;
 
                 // Initialize the chat window with the configuration
-                new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
+                // new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
+                let chatWindowInstance = new KoreChatSDK.chatWindow();
+  let KoreMultiFileUploaderPlugin = MultiFileUploadPluginSDK.KoreMultiFileUploaderPlugin;
+  chatWindowInstance.installPlugin(new KoreMultiFileUploaderPlugin());
+  chatWindowInstance.show(KoreChatSDK.chatConfig);
                 console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
             } else {
                 console.log("No user email found; chatbot not initialized.");
