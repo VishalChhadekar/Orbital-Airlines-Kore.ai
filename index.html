@@ -124,7 +124,7 @@
                 // Initialize the chat window with the configuration
                 // new KoreChatSDK.chatWindow().show(KoreChatSDK.chatConfig);
                 let chatWindowInstance = new KoreChatSDK.chatWindow();
-  let KoreMultiFileUploaderPlugin = MultiFileUploadPluginSDK.KoreMultiFileUploaderPlugin;
+  let KoreMultiFileUploaderPlugin = new MultiFileUploadPluginSDK.KoreMultiFileUploaderPlugin;
   chatWindowInstance.installPlugin(new KoreMultiFileUploaderPlugin());
   chatWindowInstance.show(KoreChatSDK.chatConfig);
                 console.log("KoreChatSDK.chatConfig: ", KoreChatSDK.chatConfig);
